@@ -11,6 +11,11 @@
 
 @implementation RBLScrollView
 
++ (id)defaultAnimationForKey:(NSString *)key
+{
+	return [NSNull null];
+}
+
 #pragma mark Lifecycle
 
 - (id)initWithFrame:(NSRect)frameRect {
@@ -38,6 +43,11 @@
 	RBLClipView *clipView = [[RBLClipView alloc] initWithFrame:self.contentView.frame];
 	self.contentView = clipView;
 	self.documentView = documentView;
+}
+
+- (BOOL)drawsBackground
+{
+	return NO;
 }
 
 @end

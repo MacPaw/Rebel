@@ -9,6 +9,24 @@
 #import "RBLClipView.h"
 #import "NSColor+RBLCGColorAdditions.h"
 
+@interface RBLScrollLayer : CAScrollLayer
+
+@end
+
+@implementation RBLScrollLayer
+
+- (id<CAAction>)actionForKey:(NSString *)anEvent
+{
+	if ([anEvent isEqualToString:@"sublayers"])
+	{
+		return NULL;
+	}
+	
+	return [super actionForKey:anEvent];
+}
+
+@end
+
 @implementation RBLClipView
 
 #pragma mark Properties
@@ -37,7 +55,7 @@
 	self = [super initWithFrame:frame];
 	if (self == nil) return nil;
 
-	self.layer = [CAScrollLayer layer];
+	self.layer = [RBLScrollLayer layer];
 	self.wantsLayer = YES;
 
 	self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
@@ -47,6 +65,11 @@
 	self.opaque = NO;
 
 	return self;
+}
+
+- (BOOL)copiesOnScroll
+{
+	return NO;
 }
 
 @end
